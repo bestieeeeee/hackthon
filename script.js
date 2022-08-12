@@ -2,7 +2,7 @@ var div = document.createElement("div");
 div.style.textAlign = "center";
 var input = document.createElement("input");
 input.setAttribute("type", "text");
-input.setAttribute("id", "products");
+input.setAttribute("id", "country");
 
 var button = document.createElement("button");
 button.setAttribute("type", "button");
@@ -10,58 +10,34 @@ button.setAttribute("class", "btn btn-primary");
 button.innerHTML = ("search")
 button.addEventListener("click", foo);
 
-let brand = document.createElement("div");
-brand.setAttribute("id", "brand");
+let active = document.createElement("div");
+active.setAttribute("id", "active");
 
-let product = document.createElement("div");
-product.setAttribute("id", "product");
-
-
-let price = document.createElement("div");
-price.setAttribute("id", "price");
-
-let image = document.createElement("div");
-image.setAttribute("id", "image");
-
-let link = document.createElement("div");
-link.setAttribute("id", "link");
+let recover = document.createElement("div");
+recover.setAttribute("id", "recover");
 
 
-let description = document.createElement("div");
-description.setAttribute("id", " description");
 
+let death = document.createElement("div");
+death.setAttribute("id", "death");
 
-div.append(input,button,brand, product, price, image, link, description);
+div.append(input, button, active, recover, death);
 document.body.append(div);
 
 async function foo() {
-    let res = document.getElementById("products").value;
-    var url = `http://makeup-api.herokuapp.com/api/v1/products.json?product_type=${res}`;
-   
-    
+    let res = document.getElementById("country").value;
+    var url = `https://api.covid19api.com/dayone/country/${res}`;
 
     let result = await fetch(url);
     let result1 = await result.json();
     var index = result1.length - 1;
+    
 
-
-    console.log(result1[index].brand);
-    brand.innerHTML = `brand:${result1[index].brand}`;
-
-    console.log(result1[index].product);
-    product.innerHTML = `name:${result1[index].name}`;
-
-    console.log(result1[index].price);
-    price.innerHTML = `product price :${result1[index].price}`;
-
-    console.log(result1[index].image_link);
-    image.innerHTML = `image:${result1[index].image_link}`;
-
-    console.log(result1[index].link);
-    link.innerHTML = `product link :${result1[index].product_link}`;
-
-    console.log(result1[index].description);
-    description.innerHTML = `description of the product:${result1[index].description}`;
-
-
+    console.log(result1[index].Active);
+    active.innerHTML = `total active cases:${result1[index].Active}`;
+    console.log(result1[index].recovered);
+    recover.innerHTML = `total recovered cases:${result1[index].Recovered}`;
+    console.log(result1[index].death);
+    death.innerHTML = `total death cases:${result1[index].Deaths}`;
+    
 }
